@@ -179,13 +179,29 @@ def main():
         model_count = 3 * len(cases)
         avg = mean(times) / model_count * 1e6
         sd = stdev(times) / model_count * 1e6
-        results.append(f'{p:>40} best={min(times) / model_count * 1e6:0.3f}μs/iter '
-                       f'avg={avg:0.3f}μs/iter stdev={sd:0.3f}μs/iter')
+        best = min(times) / model_count * 1e6
+        results.append(
+            (
+                f'{p:>40} best={best:0.3f}μs/iter '
+                f'avg={avg:0.3f}μs/iter stdev={sd:0.3f}μs/iter',
+                best,
+                avg,
+                sd
+            )
+        )
         csv_results.append([p, avg, sd])
         print()
 
+    best = results[0][1]
+    avg = results[0][2]
+    sd = results[0][3]
+
     for r in results:
-        print(r)
+        rbest = best / r[1] * 100
+        ravg = avg / r[2] * 100
+        rsd = sd / r[3] * 100 if r[3] > 0 else 0
+        performance = f'performance={rbest:0.1f}/{ravg:0.1f}/{rsd:0.1f}'
+        print(f'{r[0]} {performance}')
 
     if 'SAVE' in os.environ:
         csv_file = StringIO()
