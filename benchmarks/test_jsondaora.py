@@ -1,18 +1,17 @@
-from dataclasses import dataclass, field
+from dataclasses import field
 from datetime import datetime
 from typing import List, Optional
 
-from dataclassesjson import asdataclass, dataclassjson, string, integer
-from dataclassesjson.exceptions import DeserializationError
+from jsondaora import asdataclass, jsondaora, string, integer
+from jsondaora.exceptions import DeserializationError
 
 
-class TestDataClassesJson:
-    package = 'dataclassesjson'
+class TestTypingJson:
+    package = 'jsondaora'
 
     def __init__(self, allow_extra):
 
-        @dataclassjson
-        @dataclass
+        @jsondaora
         class Model:
             id: int
             client_name: string(max_length=255)
@@ -22,7 +21,7 @@ class TestDataClassesJson:
             # client_email: EmailStr = None
             client_phone: string(max_length=255) = None
 
-            @dataclass
+            @jsondaora
             class Location:
                 latitude: Optional[float] = None
                 longitude: Optional[float] = None
@@ -32,7 +31,7 @@ class TestDataClassesJson:
             upstream_http_referrer: string(max_length=1023) = None
             last_updated: datetime = None
 
-            @dataclass
+            @jsondaora
             class Skill:
                 subject: str
                 subject_id: int

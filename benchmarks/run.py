@@ -34,10 +34,14 @@ try:
     from test_toasted_marshmallow import TestToastedMarshmallow
 except Exception:
     TestToastedMarshmallow = None
-try:
-    from test_dataclassesjson import TestDataClassesJson
-except Exception:
-    TestDataClassesJson = None
+#try:
+from test_jsondaora import TestTypingJson
+#except Exception:
+#    TestTypingJson = None
+#try:
+from test_jsondaora_typed_dict import TestTypingJsonTypedDict
+#except Exception:
+#    TestTypingJsonTypedDict = None
 
 PUNCTUATION = ' \t\n!"#$%&\'()*+,-./'
 LETTERS = string.ascii_letters
@@ -48,7 +52,7 @@ random = random.SystemRandom()
 # in order of performance for csv
 other_tests = [
     t for t in
-    [TestDataClassesJson, TestToastedMarshmallow, TestMarshmallow, TestTrafaret, TestDRF]
+    [TestTypingJsonTypedDict, TestTypingJson, TestToastedMarshmallow, TestMarshmallow, TestTrafaret, TestDRF]
     if t is not None
 ]
 
